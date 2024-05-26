@@ -10,9 +10,7 @@ public class CryptoParser {
     private String coinName;
     private String errorMessage = "Не удалось поучить стоимость валюты, попробуйте еще раз";
 
-    public CryptoParser(String coinName) {
-        this.coinName = coinName;
-    }
+    public CryptoParser(String coinName) { this.coinName = coinName; }
 
     public String getPrice() {
         String url = getURLbyCoinName();
