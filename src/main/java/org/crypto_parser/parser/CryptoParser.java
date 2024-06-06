@@ -5,12 +5,20 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CryptoParser {
     private String coinName;
+    private Map<String, String> urls = new HashMap<String, String>();
     private String errorMessage = "Не удалось поучить стоимость валюты, попробуйте еще раз";
 
-    public CryptoParser(String coinName) { this.coinName = coinName; }
+    public CryptoParser(String coinName) {
+        this.coinName = coinName;
+        urls.put("Kaspa", "https://coincodex.com/crypto/kaspa/");
+        urls.put("Sedra", "https://coincodex.com/crypto/sedracoin/");
+        urls.put("Bugna", "https://coincodex.com/crypto/bugna/");
+    }
 
     public String getPrice() {
         String url = getURLbyCoinName();
@@ -28,15 +36,6 @@ public class CryptoParser {
     }
 
     private String getURLbyCoinName() {
-        switch (coinName) {
-            case "Kaspa":
-                return "https://coincodex.com/crypto/kaspa/";
-            case "Sedra":
-                return "https://coincodex.com/crypto/sedracoin/";
-            case "Bugna":
-                return "https://coincodex.com/crypto/bugna/";
-            default:
-                return "";
-        }
+        return urls.get(coinName);
     }
 }
