@@ -43,22 +43,26 @@ public class CryptoBot implements LongPollingSingleThreadUpdateConsumer {
                 message = parser.getPrice();
             }
 
-            SendMessage sendMessage = SendMessage
-                    .builder()
-                    .chatId(chatID)
-                    .text(message)
-                    .build();
-            sendMessage.setReplyMarkup(ReplyKeyboardMarkup
-                    .builder()
-                    .keyboardRow(new KeyboardRow("Kaspa", "Sedra", "Bugna"))
-                    .resizeKeyboard(true)
-                    .build());
+            sendMessage(message, chatID);
+        }
+    }
 
-            try {
-                telegramClient.execute(sendMessage);
-            } catch (TelegramApiException ex) {
-                ex.printStackTrace();
-            }
+    private void sendMessage(String msg, long chatID) {
+        SendMessage sendMessage = SendMessage
+                .builder()
+                .chatId(chatID)
+                .text(msg)
+                .build();
+        sendMessage.setReplyMarkup(ReplyKeyboardMarkup
+                .builder()
+                .keyboardRow(new KeyboardRow("Kaspa", "Sedra", "Bugna"))
+                .resizeKeyboard(true)
+                .build());
+
+        try {
+            telegramClient.execute(sendMessage);
+        } catch (TelegramApiException ex) {
+            ex.printStackTrace();
         }
     }
 }
